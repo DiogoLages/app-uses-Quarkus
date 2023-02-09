@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import com.diogolages.cliente.Cliente;
+import com.diogolages.cliente.ClienteService;
 
 @Path("/reserva-cli")
 public class ReservaResource {
@@ -16,14 +17,18 @@ public class ReservaResource {
     @RestClient
     ReservaService reservaService;
 
+    @Inject
+    @RestClient
+    ClienteService clienteService;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("createReserva")
     public String createReserva(){
+        Cliente cliente = clienteService.findById(2);
+        Reserva reserva = Reserva.of(cliente);
 
-        Cliente cliente = Cliente.of(2, "");
-
-        return reservaService.createReserva(cliente);
+        return reservaService.createReserva(reserva);
     }
     
 }
