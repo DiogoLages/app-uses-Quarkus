@@ -5,6 +5,8 @@ public class Cliente {
     private long id;
     private String nome;
 
+    public Cliente(){}
+
     public Cliente(long id, String nome) {
         this.id = id;
         this.nome = nome;
